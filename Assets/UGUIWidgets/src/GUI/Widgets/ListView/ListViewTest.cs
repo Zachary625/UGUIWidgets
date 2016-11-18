@@ -56,7 +56,7 @@ namespace Assets.src.GUI.ListView
 			};
 
 			foreach (string paragraph in paragraphs) {
-				listView.AddItem (this._getItem(paragraph));
+				this._addItem (paragraph);
 			}
 
 		}
@@ -66,8 +66,11 @@ namespace Assets.src.GUI.ListView
 
 		}
 
-		private GameObject _getItem(string text) {
+		private void _addItem(string text) {
 			GameObject textObj = new GameObject ();
+
+			RectTransform rectTransformComponent = textObj.AddComponent<RectTransform> ();
+
 			Text textComponent = textObj.AddComponent<Text> ();
 			switch (this._direction) {
 			case _Direction.Vertical:
@@ -88,12 +91,16 @@ namespace Assets.src.GUI.ListView
 			textComponent.font = this.TextFont;
 			textComponent.text = text;
 
-			return textObj;
+			this.GetComponent<ListView> () .AddItem(textObj);
+			rectTransformComponent.anchorMin = Vector2.zero;
+			rectTransformComponent.anchorMax = Vector2.one;
+			rectTransformComponent.offsetMin = Vector2.zero;
+			rectTransformComponent.offsetMax = Vector2.zero;
 		}
 
 		public void AddContent() {
 			string contentText = this.addContentInputField.text;
-			this.GetComponent<ListView> () .AddItem(this._getItem(contentText));
+			this._addItem (contentText);
 		}
 
 		public void DeleteIndex() {

@@ -59,8 +59,17 @@ namespace Assets.src.GUI.ListView
 
 		public void CalculateLayoutInputHorizontal() {
 			ListView listViewComponent = listView.GetComponent<ListView> ();
-			if (listViewComponent != null && listViewComponent.direction == ListView.Direction.Vertical) {
-				this._width = listView.GetComponent<RectTransform> ().rect.size.x;
+			if (listViewComponent != null) {
+				if (listViewComponent.direction == ListView.Direction.Vertical) {
+					this._width = listView.GetComponent<RectTransform> ().rect.size.x;
+				} else {
+					if (this.content != null) {
+						ILayoutElement iLayoutElement = content.GetComponent<ILayoutElement> ();
+						if (iLayoutElement != null) {
+							this._width = iLayoutElement.minWidth;
+						}
+					}
+				}
 			} else {
 //				RectTransform contentRectTransform = this.content.GetComponent<RectTransform> ();
 //				if (contentRectTransform != null) {
@@ -71,8 +80,17 @@ namespace Assets.src.GUI.ListView
 
 		public void CalculateLayoutInputVertical() {
 			ListView listViewComponent = listView.GetComponent<ListView> ();
-			if (listViewComponent != null && listViewComponent.direction == ListView.Direction.Horizontal) {
-				this._height = listView.GetComponent<RectTransform>().rect.size.y;
+			if (listViewComponent != null) {
+				if (listViewComponent.direction == ListView.Direction.Horizontal) {
+					this._height = listView.GetComponent<RectTransform> ().rect.size.y;
+				} else {
+					if (this.content != null) {
+						ILayoutElement iLayoutElement = content.GetComponent<ILayoutElement> ();
+						if (iLayoutElement != null) {
+							this._height = iLayoutElement.minHeight;
+						}
+					}
+				}
 			} else {
 //				RectTransform contentRectTransform = this.content.GetComponent<RectTransform> ();
 //				if (contentRectTransform != null) {
