@@ -6,6 +6,10 @@ using UnityEngine.UI;
 namespace Assets.src.GUI.ListView
 {
 	public class ListViewTest : MonoBehaviour {
+
+		public InputField addContentInputField;
+		public InputField deleteIndexInputField;
+
 		private enum _Direction
 		{
 			None,
@@ -29,8 +33,9 @@ namespace Assets.src.GUI.ListView
 				//				Debug.Log (" @ ListViewTest: Font.GetOSInstalledFontNames(): " + fontName);
 			}
 
-			bool hasVertical = this.GetComponent<VerticalLayoutGroup> () != null;
-			bool hasHorizontal = this.GetComponent<HorizontalLayoutGroup> () != null;
+			ListView listView = this.GetComponent<ListView> ();
+			bool hasVertical = listView.direction == ListView.Direction.Vertical;
+			bool hasHorizontal = listView.direction == ListView.Direction.Horizontal;
 
 			if (hasVertical && !hasHorizontal) {
 				this._direction = _Direction.Vertical;
@@ -51,28 +56,7 @@ namespace Assets.src.GUI.ListView
 			};
 
 			foreach (string paragraph in paragraphs) {
-				GameObject textObj = new GameObject ();
-				Text textComponent = textObj.AddComponent<Text> ();
-				switch (this._direction) {
-				case _Direction.Vertical:
-					{
-						textComponent.horizontalOverflow = HorizontalWrapMode.Wrap;
-						textComponent.verticalOverflow = VerticalWrapMode.Truncate;
-
-						break;
-					}
-				case _Direction.Horizontal:
-					{
-						textComponent.horizontalOverflow = HorizontalWrapMode.Wrap;
-						textComponent.verticalOverflow = VerticalWrapMode.Truncate;
-						break;
-					}
-				}
-
-				textComponent.color = this.TextColor;
-				textComponent.font = this.TextFont;
-				textComponent.text = paragraph;
-				textComponent.transform.SetParent(this.transform);
+				listView.AddItem (this._getItem(paragraph));
 			}
 
 		}
@@ -80,6 +64,44 @@ namespace Assets.src.GUI.ListView
 		// Update is called once per frame
 		void Update () {
 
+		}
+
+		private GameObject _getItem(string text) {
+			GameObject textObj = new GameObject ();
+			Text textComponent = textObj.AddComponent<Text> ();
+			switch (this._direction) {
+			case _Direction.Vertical:
+				{
+					textComponent.horizontalOverflow = HorizontalWrapMode.Wrap;
+					textComponent.verticalOverflow = VerticalWrapMode.Truncate;
+					break;
+				}
+			case _Direction.Horizontal:
+				{
+					textComponent.horizontalOverflow = HorizontalWrapMode.Wrap;
+					textComponent.verticalOverflow = VerticalWrapMode.Truncate;
+					break;
+				}
+			}
+
+			textComponent.color = this.TextColor;
+			textComponent.font = this.TextFont;
+			textComponent.text = text;
+
+			return textObj;
+		}
+
+		public void AddContent() {
+			string contentText = this.addContentInputField.text;
+			this.GetComponent<ListView> () .AddItem(this._getItem(contentText));
+		}
+
+		public void DeleteIndex() {
+			int deleteIndex = System.Int32.Parse (this.deleteIndexInputField.text);
+			ListView listView = this.GetComponent<ListView> ();
+			GameObject item = listView.GetItem (deleteIndex);
+			listView.RemoveItem(deleteIndex);
+			Destroy (item);
 		}
 	}
 }

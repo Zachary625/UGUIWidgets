@@ -63,10 +63,11 @@ namespace Assets.src.GUI.ListView
 			}
 		}
 
-
+		void Awake() {
+			this._contentPanel = this.transform.Find("Viewport/Content").gameObject;
+		}
 		// Use this for initialization
 		void Start () {
-			this._contentPanel = this.transform.Find("Viewport").Find("Content").gameObject;
 
 			bool hasVertical = this._contentPanel.GetComponent<VerticalLayoutGroup> () != null;
 			bool hasHorizontal = this._contentPanel.GetComponent<HorizontalLayoutGroup> () != null;
@@ -97,7 +98,7 @@ namespace Assets.src.GUI.ListView
 		}
 
 
-		public void addItem(GameObject content) {
+		public void AddItem(GameObject content) {
 			if (!this._isValidItemContent (content)) {
 				return;
 			}
@@ -105,7 +106,7 @@ namespace Assets.src.GUI.ListView
 			this._updateItems ();
 		}
 
-		public void addItem(GameObject content, int index) {
+		public void AddItem(GameObject content, int index) {
 			if (!this._isValidItemContent (content)) {
 				return;
 			}
@@ -113,7 +114,7 @@ namespace Assets.src.GUI.ListView
 			this._updateItems ();
 		}
 
-		public GameObject getItem(int itemIndex) {
+		public GameObject GetItem(int itemIndex) {
 			try {
 				return this._itemContents[itemIndex];				
 			}
@@ -122,35 +123,32 @@ namespace Assets.src.GUI.ListView
 			}
 		}
 
-		public void removeItem(GameObject content) {
+		public void RemoveItem(GameObject content) {
 			this._itemContents.Remove (content);
 			this._updateItems ();
 		}
 
-		public void removeItem(int index) {
+		public void RemoveItem(int index) {
 			this._itemContents.RemoveAt (index);
 			this._updateItems ();
 		}
 
-		public void removeAllItems() {
+		public void RemoveAllItems() {
 			this._itemContents.Clear ();
 			this._updateItems ();
 		}
 
 		private void _updateItems() {
-			if (this._itemContents.Count < this._contentPanel.transform.childCount) {
-				while (true) {
-					GameObject item = this._contentPanel.transform.GetChild (this._itemContents.Count).gameObject;
-					if (item) {
-						this._removeItemContainer (item);
-					} else {
-						break;
-					}
-				}
+			while (this._itemContents.Count > this._contentPanel.transform.childCount) {
+				this._createItemContainer ();
 			}
-			else {
-				while (this._itemContents.Count > this._contentPanel.transform.childCount) {
-					this._createItemContainer ();
+
+			while (this._itemContents.Count < this._contentPanel.transform.childCount) {
+				GameObject item = this._contentPanel.transform.GetChild (this._contentPanel.transform.childCount - 1).gameObject;
+				if (item) {
+					this._removeItemContainer (item);
+				} else {
+					break;
 				}
 			}
 
@@ -212,6 +210,8 @@ namespace Assets.src.GUI.ListView
 
 			itemContainer.transform.SetParent (null);
 			itemContainer.transform.DetachChildren ();
+
+			Destroy (itemContainer);
 
 		}
 

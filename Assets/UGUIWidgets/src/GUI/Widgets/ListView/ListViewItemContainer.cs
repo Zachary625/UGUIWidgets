@@ -60,7 +60,7 @@ namespace Assets.src.GUI.ListView
 		public void CalculateLayoutInputHorizontal() {
 			ListView listViewComponent = listView.GetComponent<ListView> ();
 			if (listViewComponent != null && listViewComponent.direction == ListView.Direction.Vertical) {
-				this._width = this.transform.parent.GetComponent<RectTransform> ().rect.size.x;
+				this._width = listView.GetComponent<RectTransform> ().rect.size.x;
 			} else {
 //				RectTransform contentRectTransform = this.content.GetComponent<RectTransform> ();
 //				if (contentRectTransform != null) {
@@ -72,7 +72,7 @@ namespace Assets.src.GUI.ListView
 		public void CalculateLayoutInputVertical() {
 			ListView listViewComponent = listView.GetComponent<ListView> ();
 			if (listViewComponent != null && listViewComponent.direction == ListView.Direction.Horizontal) {
-				this._height = this.transform.parent.GetComponent<RectTransform>().rect.size.y;
+				this._height = listView.GetComponent<RectTransform>().rect.size.y;
 			} else {
 //				RectTransform contentRectTransform = this.content.GetComponent<RectTransform> ();
 //				if (contentRectTransform != null) {
