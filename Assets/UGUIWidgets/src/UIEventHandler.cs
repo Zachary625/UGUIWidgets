@@ -48,6 +48,7 @@ public class UIEventHandler : MonoBehaviour {
 		GameObject scrollViewObj = GameObject.Find ("Scroll View");
 		GameObject contentObj = scrollViewObj.transform.Find("Viewport").transform.Find("Content").gameObject;
 
+
 		contentObj.transform.DetachChildren ();
 	}
 }
