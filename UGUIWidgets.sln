@@ -1,7 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{3887DFE9-7ED0-AA24-41F6-3BAB5E7E7AC3}") = "UGUIWidgets", "Assembly-CSharp.csproj", "{37C41962-8DE2-40AC-8815-94DD8C86D6FF}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UGUIWidgets", "UGUIWidgets.csproj", "{A2E56C70-DF67-310C-B514-E904041A29AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +9,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{37C41962-8DE2-40AC-8815-94DD8C86D6FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37C41962-8DE2-40AC-8815-94DD8C86D6FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37C41962-8DE2-40AC-8815-94DD8C86D6FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37C41962-8DE2-40AC-8815-94DD8C86D6FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2E56C70-DF67-310C-B514-E904041A29AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2E56C70-DF67-310C-B514-E904041A29AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2E56C70-DF67-310C-B514-E904041A29AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2E56C70-DF67-310C-B514-E904041A29AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
